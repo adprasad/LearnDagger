@@ -1,0 +1,1 @@
+Base classes allow the DI to occur at a higher level so you're not repeating code.
