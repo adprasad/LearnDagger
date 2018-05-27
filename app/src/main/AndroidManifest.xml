@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".dependencyinjection.MyDiApplication"
-        >
+        android:fullBackupContent="@xml/backup_descriptor">
         <activity android:name=".ExampleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

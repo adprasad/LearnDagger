@@ -22,30 +22,41 @@ import com.shadowedmindsdesigns.learn.dagger.example.common.controller.BaseActiv
 
 import android.support.v4.app.FragmentManager;
 
+import junit.framework.Assert;
+
 import javax.inject.Inject;
 
 public class ExampleActivity extends BaseActivity {
 
     // @Inject added for properties provided by injection
     // Tried to inject the fragment manager but the code complained
-    @Inject Activity activity;
-    @Inject
-    MyLogger logger;
+    @Inject public Activity activity;
+    @Inject public FragmentManager fm;
 
-    @Inject FragmentManager fm;
+/*    @UiThread
+    @Override
+    protected ControllerComponent getControllerComponent(){
+        ControllerComponent controllerComponent = ((MyDiApplication) getApplication())
+                .getApplicationComponent()
+                .newControllerComponent(
+                        new ControllerModule(this)
+                );
+        activity = controllerComponent.getActivity();
+        return controllerComponent;
+    }*/
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Still need to do injection first.
         getControllerComponent().inject(this);
         super.onCreate(savedInstanceState);
+        // Still need to do injection first
         setContentView(R.layout.activity_example);
-
-        Button btn = (Button) findViewById(R.id.app_button);
+        Button btn = findViewById(R.id.app_button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logger.d("Button pressed");
+                ((MyDiApplication)getApplication()).getMyLogger().d("Button pressed");
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                 builder.setMessage(R.string.dialog_fire_missiles)
                         .setPositiveButton(R.string.fire, new DialogInterface.OnClickListener() {
@@ -63,7 +74,6 @@ public class ExampleActivity extends BaseActivity {
                 alertDialog.show();
             }
         });
-
 
     }
 

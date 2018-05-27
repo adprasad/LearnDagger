@@ -2,33 +2,37 @@ package com.shadowedmindsdesigns.learn.dagger.dependencyinjection.controller;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+
+import com.shadowedmindsdesigns.learn.dagger.dependencyinjection.application.ApplicationComponent;
+import com.shadowedmindsdesigns.learn.dagger.dependencyinjection.application.ApplicationModule;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class ControllerModule {
-    private final FragmentActivity mFragmentActivity;
+    private FragmentActivity mFragmentActivity;
 
-
-    public ControllerModule(FragmentActivity activity) {
-        this.mFragmentActivity = activity;
+    public ControllerModule(@NonNull FragmentActivity activity) {
+        mFragmentActivity = activity;
     }
 
+
     @Provides
-    Context context() {
+    protected Context getContext() {
         return mFragmentActivity;
     }
 
     @Provides
-    Activity activity() {
+    protected Activity getActivity() {
         return mFragmentActivity;
     }
 
     @Provides
-    FragmentManager fragmentManager() {
+    protected FragmentManager getFragmentManager() {
         return this.mFragmentActivity.getSupportFragmentManager();
     }
 

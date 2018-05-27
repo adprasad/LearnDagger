@@ -9,7 +9,7 @@ import dagger.Provides;
 
 @Module
 public class ApplicationModule {
-    private final Application mApp;
+    protected final Application mApp;
 
     public ApplicationModule(Application mApp) {
         this.mApp = mApp;
@@ -17,13 +17,13 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationScope
-    Application application(){
+    protected Application application(){
         return this.mApp;
     }
 
     @Provides
     @ApplicationScope
-    MyLogger logger(){
+    protected MyLogger logger(){
         return new MyLogger();
     }
 }

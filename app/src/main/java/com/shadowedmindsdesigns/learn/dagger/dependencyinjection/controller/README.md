@@ -16,6 +16,8 @@ Sub-components automatically get direct access to parents DI graph which makes m
 
 Use stand-alone sub-component in order to inject into Activities and Fragments.
 
+To use this schema you need an inject method for every activity/fragment type because otherwise it will not know what needs injected. I was orignially using the baseactivity as in the component inject method but my example activity needed more injections than what the base class needed causing those required injections to be null.
+
 Controller Module
 -
 

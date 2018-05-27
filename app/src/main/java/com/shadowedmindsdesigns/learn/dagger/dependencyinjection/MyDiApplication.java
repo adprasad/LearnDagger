@@ -10,19 +10,27 @@ import com.shadowedmindsdesigns.learn.dagger.example.MyLogger;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjection;
+
 /**
  * Keeping under di package because I wouldn't have overridden this class except to support DI
  */
-public class MyDiApplication extends Application {
-    private ApplicationComponent mApplicationComponent;
+public class MyDiApplication extends Application  {
+    @Inject
+    protected ApplicationComponent mApplicationComponent;
+
+
+    public MyLogger getMyLogger() {
+        return mLogger;
+    }
 
     @Inject
-    MyLogger mLogger;
+    protected MyLogger mLogger;
 
     // Annotated with UI because normally you do not do DI on bg thread
     @UiThread
-    public ApplicationComponent getApplicationComponent(){
-        if( mApplicationComponent == null ){
+    public ApplicationComponent getApplicationComponent() {
+        if (mApplicationComponent == null) {
             mApplicationComponent = DaggerApplicationComponent.builder()
                     .applicationModule(new ApplicationModule(this)) // API is depreciated
                     .build();
